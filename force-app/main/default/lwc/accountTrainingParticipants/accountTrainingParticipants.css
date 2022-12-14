@@ -1,0 +1,8 @@
+.my-icon {
+    --sds-c-icon-color-foreground-default: white;
+}
+
+.x-icon {
+    --sds-c-icon-color-foreground-default: white;
+    cursor: pointer;
+}
