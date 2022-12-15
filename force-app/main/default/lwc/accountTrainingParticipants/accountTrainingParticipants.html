@@ -5,7 +5,6 @@
         </div>
     </template>
     <template if:true={error}>
-        </div>
         <div class="slds-notify slds-notify_alert slds-alert_error" role="alert">
             <span class="slds-assistive-text">error</span>
             <div class="slds-var-p-right_medium">
@@ -24,32 +23,28 @@
                             class="x-icon"
                             onclick={closeWarning}></lightning-icon>
             </div>
-            </div>
+        </div>
         </template>
     <div style="margin-left:4%; margin:0px auto; width: 300px;">
         <div>
-            <lightning-input label="" name="file uploader" onchange={handleFilesChange} type="file" multiple></lightning-input>
+            <lightning-input label=""
+                             name="file uploader"
+                             onchange={handleFilesChange}
+                             type="file"
+                             accept={acceptedFormats}
+                             single></lightning-input>
         </div><br/>
         <div class="slds-text-body_small slds-text-color_success">{fileName}
         </div><br/>
         <div>
-            <lightning-button class="slds-var-m-top_medium" label={UploadFile} onclick={handleSave} variant="brand" disabled={isTrue}></lightning-button>
+            <lightning-button class="slds-var-m-top_medium" label={UploadFile} disabled={buttonDisabled} onclick={handleSave} variant="brand"></lightning-button>
         </div>
     </div>
-    <template if:true={allData}>
-        <!--<div class="slds-var-p-around_medium">
-            <lightning-input type="search" label="Search Status" onchange={updateSearch} placeholder="Filter by status to understand why this row was not processed"></lightning-input>
-        </div>-->
+    <template if:true={showDatatable}>
         <lightning-layout horizontal-align="spread">
             <lightning-layout-item padding="around-small">
-                <lightning-card title="Objects" icon-name="standard:sobject_collection">
+                <lightning-card title="CSV File Issues" icon-name="standard:sobject_collection">
                 </lightning-card>
-            </lightning-layout-item>
-            <lightning-layout-item padding="around-small">
-                <lightning-button-menu alternative-text="Show menu" variant="border-filled" icon-name="utility:filterList">
-                    <lightning-menu-item value="Success" label="Success"></lightning-menu-item>
-                    <lightning-menu-item value="Failures" label="Failures"></lightning-menu-item>
-                </lightning-button-menu>
             </lightning-layout-item>
         </lightning-layout>
         <lightning-datatable
@@ -57,48 +52,20 @@
             data={pageData}
             columns={columns}
             key-field="id"
+            onrowaction={handleRowAction}
             hide-checkbox-column>
         </lightning-datatable>
         <lightning-layout horizontal-align="end">
             <lightning-layout-item padding="around-small">
-                <lightning-button-group>
-                    <lightning-button label="&#x00AB;" onclick={first}></lightning-button>
-                    <lightning-button label="&lt;" onclick={previous}></lightning-button>
-                    <lightning-button label="&gt;" onclick={next}></lightning-button>
-                    <lightning-button label="&#x00BB;" onclick={last}></lightning-button>
-                </lightning-button-group>
+                <template if:true={showPagination}>
+                    <lightning-button-group>
+                        <lightning-button label="&#x00AB;" onclick={first}></lightning-button>
+                        <lightning-button label="&lt;" onclick={previous}></lightning-button>
+                        <lightning-button label="&gt;" onclick={next}></lightning-button>
+                        <lightning-button label="&#x00BB;" onclick={last}></lightning-button>
+                    </lightning-button-group>
+                </template>
             </lightning-layout-item>
         </lightning-layout>
-        <!-- Pagination -->
-        <!--<div class="slds-var-p-around_medium">
-            <table>
-                <thead>
-                    <tr>
-                        <template for:each={columns} for:item="col">
-                            <th key={col.fieldName}>{col.label}</th>
-                        </template>
-                    </tr>
-                </thead>
-                <tbody>
-                    <template for:each={wrappers} for:item="wrapper">
-                        <tr key={wrapper.Id}>
-                            <td>{wrapper.firstName}</td>
-                            <td>{wrapper.lastName}</td>
-                            <td>{wrapper.recordId}</td>
-                            <td>{wrapper.trainingDate}</td>
-                            <td>{wrapper.trainingName}</td>
-                            <td>{wrapper.email}</td>
-                            <td>{wrapper.sObjName}</td>
-                            <td>{wrapper.status}</td>
-                        </tr>
-                    </template>
-                </tbody>
-            </table>
-            <div class="slds-float_right slds-size_1-of-1">
-                <template if:true={totalWrappers}>
-                    <c-pagination totalrecords={totalWrappers} page-size={pageSize} onpagination={handlePagination}></c-pagination>
-                </template>
-            </div>
-        </div>-->
     </template>
 </template>
