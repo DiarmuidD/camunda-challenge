@@ -1,9 +1,4 @@
 public class CsvUploadWrapper{
-    /* { label: 'Training Date', fieldName: 'TrainingDate__c' },
-    { label: 'Training Name', fieldName: 'TrainingName__c' },*/
-
-    @AuraEnabled
-    public String recordId;
     @AuraEnabled
     public String firstName;
     @AuraEnabled
@@ -17,13 +12,11 @@ public class CsvUploadWrapper{
     @AuraEnabled
     public String status;
     @AuraEnabled
-    public String sObjName; //change to type - Contact, Lead, CSV Row
-    //include type of record??
-    //Include status - process; not processed
-    //Add an attribute to store duplicate email set
+    public String sObjName;
+    @AuraEnabled
+    public String recordId;
 
     public CsvUploadWrapper(){
-        this.recordId = '';
         this.firstName = '-';
         this.lastName = '-';
         this.trainingDate = '-';
@@ -31,6 +24,6 @@ public class CsvUploadWrapper{
         this.email = '-';
         this.status = '-';
         this.sObjName = '-';
-        this.duplicates = '-';
+        this.recordId = '-';
     }
 }
