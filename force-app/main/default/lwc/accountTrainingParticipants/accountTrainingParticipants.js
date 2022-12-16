@@ -111,13 +111,29 @@ export default class AccountTrainingParticipants extends LightningElement {
             }
             //No CSV rows processed
             else if(this.allData.length == linesLength){
-                this.fileName = this.fileName + ' - Not Uploaded';
-                this.title = 'No Rows Processed';
-                this.message = 'Please review the table below to see the row failure reason.';
-                this.variant = 'error';
-                this.mode = 'pester';
-                this.showNotification();
-                this.updatePage();
+                var sObjNames = new Set();
+                for(let i=0; i < this.allData.length; i++){
+                    sObjNames.add(this.allData[i].sObjName);
+                }
+
+                if(sObjNames.has('Lead') && sObjNames.size == 1) {
+                    this.fileName = this.fileName + ' - Uploaded Successfully';
+                    this.title = 'Rows Processed';
+                    this.message = 'Existing leads have been found for your CSV rows. These will be added to their corresponding Campaign.';
+                    this.variant = 'success';
+                    this.mode = 'pester';
+                    this.showNotification();
+                    this.updatePage();
+                }
+                else {
+                    this.fileName = this.fileName + ' - Not Uploaded';
+                    this.title = 'No Rows Processed';
+                    this.message = 'Please review the table below to see the row failure reason.';
+                    this.variant = 'error';
+                    this.mode = 'pester';
+                    this.showNotification();
+                    this.updatePage();
+                }
             }
             //Some CSV rows processed
             else {

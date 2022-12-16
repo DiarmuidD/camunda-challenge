@@ -127,6 +127,8 @@ public class csvUploadController {
                             wrapper.firstName = lead.FirstName;
                             wrapper.lastName = lead.LastName;
                             wrapper.email = lead.Email;
+                            wrapper.trainingName = con.TrainingName__c;
+                            wrapper.trainingDate = String.valueOf(con.TrainingDate__c);
                             wrapper.sObjName = 'Lead';
                             wrapper.status = 'Already Exists. This Lead will be added as a participant to the ' + con.TrainingName__c;
                             wrapperList.add(wrapper);
