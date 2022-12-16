@@ -111,15 +111,10 @@ export default class AccountTrainingParticipants extends LightningElement {
             }
             //No CSV rows processed
             else if(this.allData.length == linesLength){
-                console.log(this.allData);
                 var sObjNames = new Set();
-
                 for(let i=0; i < this.allData.length; i++){
                     sObjNames.add(this.allData[i].sObjName);
                 }
-                console.log('sObjNames: ', sObjNames);
-                console.log('sObjNames.has lead: ', sObjNames.has('Lead'));
-                console.log('sObjNames size: ', sObjNames.size);
 
                 if(sObjNames.has('Lead') && sObjNames.size == 1) {
                     this.fileName = this.fileName + ' - Uploaded Successfully';
